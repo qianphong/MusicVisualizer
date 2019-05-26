@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>test</title>
+	<style>
+		.box{
+			position:absolute;
+			top:50px;
+			bottom:20px;
+			right:20px;
+			left:20px;
+			border:1px solid #000;
+			background-color:#000;
+		}
+	</style>
+	<script src="MusicVisualizer.js"></script>
+</head>
+<body>
+	<input type="file">
+	<input type="range" name="volume" id="volume" min="0" max="100" value="60">
+	<div class="box" id='box'></div>
+	<script>
+		(function(){
+			var inputBtn = document.querySelector('input[type=file]');
+			// 控制音量
+			var volume=document.querySelector('#volume');
+			// 实列化一个可视化音频
+			var music = new MusicVisualizer({
+				size:128,
+				container:document.querySelector('#box'),
+			});
+
+			volume.onchange=function(){
+				music.volumeChange(this.value/this.max);
+			}
+			inputBtn.oninput = function(){
+				var file = this.files[0];
+				if(file){
+					music.play(file)
+				}
+			}
+		}())
+		
+	</script>
+</body>
+</html>
